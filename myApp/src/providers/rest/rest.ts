@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse,} from '@angular/common/http';
+import { HttpClient, HttpResponse, } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from '../../../node_modules/rxjs/Observable';
 import "rxjs/add/operator/map";
@@ -14,6 +14,33 @@ export class RestProvider {
 
   constructor(public http: HttpClient) {
     // console.log('Hello RestProvider Provider');
+  }
+  //feed
+  private apiUrlFeeds = 'https://imoocqa.gugujiankong.com/api/feeds/get';
+
+  //account
+  private apiUrlRegister = 'https://imoocqa.gugujiankong.com/api/account/register';
+  private apiUrlLogin = 'https://imoocqa.gugujiankong.com/api/account/login';
+  private apiUrlUserInfo = 'https://imoocqa.gugujiankong.com/api/account/userinfo';
+  private apiUrlUpdateNickName = 'https://imoocqa.gugujiankong.com/api/account/updatenickname';
+
+  private apiGetUserQuestionList = "https://imoocqa.gugujiankong.com/api/account/getuserquestionlist";
+
+  //question
+  private apiUrlQuestionSave = 'https://imoocqa.gugujiankong.com/api/question/save';
+  private apiUrlQuestionList = 'https://imoocqa.gugujiankong.com/api/question/list?index=1&number=10';
+  private apiUrlGetQuestion = "https://imoocqa.gugujiankong.com/api/question/get";
+  private apiUrlGetQuestionWithUser = "https://imoocqa.gugujiankong.com/api/question/getwithuser";
+  private apiUrlAnswer = "https://imoocqa.gugujiankong.com/api/question/answer";
+  private apiUrlSaveFavourite = "https://imoocqa.gugujiankong.com/api/question/savefavourite";
+
+
+
+  //notification
+  private apiUrlUserNotifications = "https://imoocqa.gugujiankong.com/api/account/usernotifications";
+
+  login(mobile, password): Observable<string[]> {
+    return this.getUrlReturn(this.apiUrlLogin + "?mobile=" + mobile + "&passward=" + password);
   }
   /**
    *全局获取HTTP方法
