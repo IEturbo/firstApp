@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { ChatPage } from '../pages/chat/chat';
 import { DiscoveryPage } from '../pages/discovery/discovery';
@@ -29,8 +30,9 @@ import { RestProvider } from '../providers/rest/rest';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    HttpClientModule,//全局定义http模块
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),//全局导入storage
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse, } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from '../../../node_modules/rxjs/Observable';
 import "rxjs/add/operator/map";
@@ -40,7 +40,7 @@ export class RestProvider {
   private apiUrlUserNotifications = "https://imoocqa.gugujiankong.com/api/account/usernotifications";
 
   login(mobile, password): Observable<string[]> {
-    return this.getUrlReturn(this.apiUrlLogin + "?mobile=" + mobile + "&passward=" + password);
+    return this.getUrlReturn(this.apiUrlLogin + "?mobile=" + mobile + "&password=" + password);
   }
   /**
    *全局获取HTTP方法
@@ -55,9 +55,10 @@ export class RestProvider {
       .map(this.extractionData)
       .catch(this.handleError);
   }
-  private extractionData(res: any) {
-    let body = res.json();
-    return JSON.parse(body) || {};
+  private extractionData(res: Response) {
+    return res || {};
+    // let body = res.json();
+    // return JSON.parse(body) || {};
   }
   private handleError(error: Response | any) {
     let errMsg: string;
