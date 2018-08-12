@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, LoadingController, ToastController } from 'ionic-angular';
 import { BsaeUI } from '../../common/baseui';
 import { RestProvider } from '../../providers/rest/rest';
-import { Storage} from '@ionic/storage';
+import { Storage } from '@ionic/storage';
+import { RegisterPage } from '../register/register';
 /**
  * Generated class for the LoginPage page.
  *
@@ -24,7 +25,7 @@ export class LoginPage extends BsaeUI {
     public loading: LoadingController,
     public rest: RestProvider,
     public toastCtrl: ToastController,
-    public storage:Storage) {
+    public storage: Storage) {
     super();
   }
 
@@ -49,10 +50,10 @@ export class LoginPage extends BsaeUI {
     var loading = super.showLoading(this.loading, "登录中...");
     this.rest.login(this.phone, this.password).subscribe(
       f => {
-        let a=eval('('+f+")");
+        let a = eval('(' + f + ")");
         if (a['Status'] == 'OK') {
           // 登录成功处理
-          this.storage.set('UserId',a['UserId']);
+          this.storage.set('UserId', a['UserId']);
           loading.dismiss();
           this.dismiss();
         } else {
@@ -61,6 +62,9 @@ export class LoginPage extends BsaeUI {
         }
       },
       error => this.errorMessage = <any>error);
+  }
 
+  pushRegister() {
+    this.navCtrl.push(RegisterPage);
   }
 }

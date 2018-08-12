@@ -12,6 +12,7 @@ import { NoticePage } from '../pages/notice/notice';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
+import { RegisterPage } from '../pages/register/register';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -26,12 +27,15 @@ import { RestProvider } from '../providers/rest/rest';
     NoticePage,
     DiscoveryPage,
     TabsPage,
-    LoginPage
+    LoginPage,
+    RegisterPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,//全局定义http模块
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp,{
+      backButtonText:"返回",
+    }),
     IonicStorageModule.forRoot(),//全局导入storage
   ],
   bootstrap: [IonicApp],
@@ -43,7 +47,8 @@ import { RestProvider } from '../providers/rest/rest';
     NoticePage,
     DiscoveryPage,
     TabsPage,
-    LoginPage
+    LoginPage,
+    RegisterPage
   ],
   providers: [
     StatusBar,

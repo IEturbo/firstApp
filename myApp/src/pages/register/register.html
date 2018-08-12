@@ -1,5 +1,5 @@
 <!--
-  Generated template for the LoginPage page.
+  Generated template for the RegisterPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -7,13 +7,7 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>用户登录</ion-title>
-        <ion-buttons>
-            <button ion-button (click)="dismiss()">
-              <span ion-text color="primary" showWhen="ios">取消</span>
-              <ion-icon name="md-close" showWhen="android"></ion-icon>
-            </button>
-        </ion-buttons>
+        <ion-title>用户注册</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -25,17 +19,26 @@
             <ion-label stacked>手机号码</ion-label>
             <ion-input type="text" [(ngModel)]="phone"></ion-input>
         </ion-item>
+
+        <ion-item>
+            <ion-label stacked>用户昵称</ion-label>
+            <ion-input type="text" [(ngModel)]="nickName"></ion-input>
+        </ion-item>
+
         <ion-item>
             <ion-label stacked>密码</ion-label>
             <ion-input type="password" [(ngModel)]="password"></ion-input>
         </ion-item>
+        <ion-item>
+            <ion-label stacked>确认密码</ion-label>
+            <ion-input type="password" [(ngModel)]="enterPassword"></ion-input>
+        </ion-item>
         <div padding>
-            <button ion-button color="primary" (click)="login()" block>登录</button>
+            <button ion-button color="primary" (click)="registe()" block>注册</button>
         </div>
         <div padding text-center>
-            <button ion-button color="primary" (click)="pushRegister()" outline>没有账号？注册</button>
+            <button ion-button color="primary" (click)="pushLogin()" outline>已有账号？登录</button>
         </div>
 
     </ion-list>
-
 </ion-content>

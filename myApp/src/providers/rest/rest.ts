@@ -38,9 +38,13 @@ export class RestProvider {
 
   //notification
   private apiUrlUserNotifications = "https://imoocqa.gugujiankong.com/api/account/usernotifications";
-
+  // 登录
   login(mobile, password): Observable<string[]> {
     return this.getUrlReturn(this.apiUrlLogin + "?mobile=" + mobile + "&password=" + password);
+  }
+
+  register(mobile, nickname, password): Observable<string[]> {
+    return this.getUrlReturn(this.apiUrlRegister + "?mobile=" + mobile + "&nickname=" + nickname + "&password=" + password)
   }
   /**
    *全局获取HTTP方法
