@@ -1,36 +1,36 @@
 import { Component } from "@angular/core";
 import {
-  IonicPage,
   NavController,
   NavParams,
   ModalController,
   LoadingController,
-  ToastController
+  ToastController,
+  ViewController
 } from "ionic-angular";
-import { LoginPage } from "../login/login";
 import { Storage } from "@ionic/storage";
 import { BsaeUI } from "../../common/baseui";
 import { RestProvider } from "../../providers/rest/rest";
-import { UserPage } from "../user/user";
+import { HeadfacePage} from "../headface/headface";
 /**
- * Generated class for the MorePage page.
+ * Generated class for the UserPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
 
+// @IonicPage()
 @Component({
-  selector: "page-more",
-  templateUrl: "more.html"
+  selector: "page-user",
+  templateUrl: "user.html"
 })
-export class MorePage extends BsaeUI {
-  public notLogin: boolean = true;
-  public logined: boolean = false;
+export class UserPage extends BsaeUI {
   headface: string;
-  userinfo: string[];
+  userNickName: string = "加载中。。。";
+  errorMessage:any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public viewCtrl:ViewController,
     public modalCtrl: ModalController,
     public locadingCtrl: LoadingController,
     public toastCtrl: ToastController,
@@ -40,46 +40,53 @@ export class MorePage extends BsaeUI {
     super();
   }
 
-  showModal() {
-    let modal = this.modalCtrl.create(LoginPage);
-    //关闭后的回调
-    modal.onDidDismiss(()=>{
-      this.loadUserPage();
-    })
-    modal.present();
-  }
-  // ionViewCanEnter() {
-  //   this.loadUserPage();
-  // }
-  ionViewDidEnter() {
+  ionViewDidLoad() {
     this.loadUserPage();
   }
+
   loadUserPage() {
     this.storage.get("UserId").then(val => {
       if (val != null) {
         //加载用户数据
         var loading = super.showLoading(this.locadingCtrl, "加载中...");
-        this.rest.getUserinfo(val).subscribe((f: any) => {
+        this.rest.getUserinfo(val).subscribe(
+          (f: any) => {
           if (f["Status"] == "OK") {
-            this.userinfo = f;
+            this.userNickName = f["UserNickName"];
             this.headface = f["UserHeadface"] + "?" + new Date().valueOf();
-            this.notLogin = false;
-            this.logined = true;
             loading.dismiss();
           } else {
             loading.dismiss();
             super.showToast(this.toastCtrl, f["StatusContent"]);
-            this.notLogin = true;
-            this.logined = false;
           }
-        });
+        },
+        error => this.errorMessage = <any>error);
       } else {
-        this.notLogin = true;
-        this.logined = false;
       }
     });
   }
-  gotoUserpage() {
-    this.navCtrl.push(UserPage);
+  updateUserNickName(){
+    this.storage.get('UserId').then((val)=>{
+      if(val!=null){
+        var loading=super.showLoading(this.locadingCtrl,'修改中...');
+        this.rest.updateUserNickName(val,this.userNickName).subscribe((f:any)=>{
+          if(f['Status'] == "OK"){
+            loading.dismiss();
+            super.showToast(this.toastCtrl,"昵称修改成功。")
+          }else{
+            loading.dismiss();
+            super.showToast(this.toastCtrl,f['StatusContent']);
+          }
+        },
+        error => this.errorMessage = <any>error);
+      }
+    })
+  }
+  logOut(){
+    this.storage.remove("UserId");
+    this.viewCtrl.dismiss();
+  }
+  gotoHeadface(){
+    this.navCtrl.push(HeadfacePage);
   }
 }

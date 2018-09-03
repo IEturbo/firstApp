@@ -25,10 +25,19 @@
         </ion-card>
     </div>
     <div *ngIf="logined">
-        <ion-card>
+        <!-- <ion-card>
             <ion-card-header text-center>
                 已登录
             </ion-card-header>
-        </ion-card>
+        </ion-card> -->
+        <ion-list class="marginTop">
+            <button ion-item (click)="gotoUserpage()">
+            <ion-avatar item-start>
+              <img src="{{headface}}"/>
+            </ion-avatar>
+            <h2>{{userinfo['UserNickName']}}</h2>
+            <p>查看个人主页或者编辑个人简介</p>
+          </button>
+        </ion-list>
     </div>
 </ion-content>

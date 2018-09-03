@@ -50,15 +50,14 @@ export class LoginPage extends BsaeUI {
     var loading = super.showLoading(this.loading, "登录中...");
     this.rest.login(this.phone, this.password).subscribe(
       f => {
-        let a = eval('(' + f + ")");
-        if (a['Status'] == 'OK') {
+        if (f['Status'] == 'OK') {
           // 登录成功处理
-          this.storage.set('UserId', a['UserId']);
+          this.storage.set('UserId', f['UserId']);
           loading.dismiss();
           this.dismiss();
         } else {
           loading.dismiss();
-          super.showToast(this.toastCtrl, a["StatusContent"]);
+          super.showToast(this.toastCtrl, f["StatusContent"]);
         }
       },
       error => this.errorMessage = <any>error);
